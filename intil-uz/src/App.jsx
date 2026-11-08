@@ -1,13 +1,22 @@
 import { useEffect, useState } from "react";
 import Navbar from "./navbar";
 import { translations } from "./translations/translations";
-import { ArrowRight, BookOpen, ChevronDown, Globe2, Info, Network, Pencil, Send, Users, X } from "lucide-react";
+import { ArrowRight, BookOpen, ChevronDown, Globe2, Info, Pencil, X } from "lucide-react";
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTelegram } from "react-icons/fa";
 
 const socialLinks = {
   linkedin: null,
   telegram: null,
-  facebook: null
+  facebook: null,
+  instagram: null
 };
+
+const socialIcons = [
+  { name: "LinkedIn", Icon: FaLinkedinIn, url: socialLinks.linkedin },
+  { name: "Telegram", Icon: FaTelegram, url: socialLinks.telegram },
+  { name: "Facebook", Icon: FaFacebookF, url: socialLinks.facebook },
+  { name: "Instagram", Icon: FaInstagram, url: socialLinks.instagram }
+];
 
 function App() {
   const [language, setLanguage] = useState(() => localStorage.getItem("intil-language") || "UZ");
@@ -127,17 +136,12 @@ function App() {
           <div className="footer-links"><strong>{t.directionsLabel}</strong><a href="#yonalishlar">LEARN</a><a href="#yonalishlar">TEACH</a><a href="#yonalishlar">DISCOVER</a></div>
           <div className="footer-links"><strong>{t.platformLabel}</strong><a href="#platforma">{t.platformLabel}</a><a href="#maqsad">{t.purposeLabel}</a><a href="#faq">FAQ</a></div>
           <div className="social-section">
-            <strong>{language === "UZ" ? "Bizni kuzatib boring" : language === "EN" ? "Follow us" : "Подписывайтесь"}</strong>
+            <strong>{language === "UZ" ? "Bizni kuzatib boring." : language === "EN" ? "Follow us." : "Подписывайтесь."}</strong>
             <div className="social-links">
-              {[{ name: "LinkedIn", url: socialLinks.linkedin, Icon: Network }, { name: "Telegram", url: socialLinks.telegram, Icon: Send }, { name: "Facebook", url: socialLinks.facebook, Icon: Users }].map(({ name, url, Icon }) => (
-                url ? <a key={name} href={url} target="_blank" rel="noopener noreferrer" aria-label={`${name} profile`}><Icon size={18} strokeWidth={2} /></a> : <span key={name} className="social-disabled" aria-label={`${name} profile link unavailable`} title={`${name} profile link unavailable`}><Icon size={18} strokeWidth={2} /></span>
+              {socialIcons.map(({ name, url, Icon }) => (
+                url ? <a key={name} href={url} target="_blank" rel="noopener noreferrer" aria-label={`${name} profile`}><Icon size={18} /></a> : <span key={name} className="social-disabled" aria-label={`${name} profile link unavailable`} title={`${name} profile link unavailable`}><Icon size={18} /></span>
               ))}
             </div>
-            <select value={language} onChange={(e) => setLanguage(e.target.value)} aria-label={t.language} className="language-select footer-language">
-              <option value="UZ">UZ</option>
-              <option value="EN">EN</option>
-              <option value="RU">RU</option>
-            </select>
           </div>
         </div>
         <div className="section-shell footer-bottom">© 2026 INTIL.UZ. {t.copyright}</div>
